@@ -1,0 +1,1 @@
+@media only screen and (max-width: 1028px){.content{-ms-grid-columns:1fr 1fr;grid-template-columns:1fr 1fr;grid-auto-rows:30vw;row-gap:50px}.navbar__links{display:none}.navbar__container{display:block}.content__card{-ms-grid-rows:2fr 1fr 1fr;grid-template-rows:2fr 1fr 1fr}.content__card__header{font-size:1.4em}.content__card__desc{font-size:0.8em}}
