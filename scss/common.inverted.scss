@@ -1,0 +1,247 @@
+@import "variables.inverted";
+
+@font-face {
+  font-family: "Acre";
+  src: url("../assets/Jonathan\ Ball\ -\ Acre-Medium.otf");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: $primary-color;
+  overflow-x: hidden;
+  width: 100vw;
+}
+
+.spacer {
+  flex: 1 0;
+}
+
+.navbar {
+  width: 80%;
+  margin: 30px 10%;
+  display: flex;
+}
+
+.navbar__title {
+  font-size: 22px;
+  text-decoration: none;
+  font-family: $primary-font;
+  color: $secondary-color;
+}
+
+.navbar__links {
+  font-size: 22px;
+  font-family: $primary-font;
+  color: $secondary-color;
+  margin-right: 38px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navbar__links:hover {
+  color: $tertiary-color;
+}
+
+.navbar__links:active {
+  color: $tertiary-color;
+}
+
+.navbar__container {
+  display: none;
+}
+
+.navbar__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  appearance: none;
+  position: fixed;
+}
+
+.navbar__label {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  width: 15px;
+  height: 10px;
+  margin: 40px;
+}
+
+.navbar__label__span {
+  display: block;
+  width: 100%;
+  background: hotpink;
+  height: 2px;
+  transition: transform 1s;
+  z-index: 2;
+}
+
+.navbar__label__span::before,
+.navbar__label__span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  height: 2px;
+  background: hotpink;
+  transition: 0.4s;
+}
+
+.navbar__label__span::before {
+  top: 0;
+}
+
+.navbar__label__span::after {
+  top: calc(100%-2px);
+}
+
+.navbar__menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(100vw);
+  transition: transform 0.2s;
+  background: $secondary-color;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.navbar__spacer {
+  height: 50px;
+}
+
+.navbar__input:checked + .navbar__label .navbar__label__span {
+  transform: rotate(45deg);
+}
+
+.navbar__input:checked + .navbar__label .navbar__label__span::before,
+.navbar__input:checked + .navbar__label .navbar__label__span::after {
+  top: calc(50% - 1px);
+  transition: 0.4s;
+}
+
+.navbar__input:checked + .navbar__label .navbar__label__span::after {
+  transform: rotate(90deg);
+}
+
+.navbar__input:checked ~ .navbar__menu {
+  transform: none;
+  transition: transform 0.4s;
+}
+
+.navbar__menu__links {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-size: 1.5em;
+  text-decoration: none;
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 40px;
+}
+
+.header {
+  margin: 70px 15% 0;
+  width: 70%;
+  background-color: $primary-color;
+}
+
+.header__title {
+  font-family: $primary-font;
+  color: $secondary-color;
+  font-size: 4rem;
+}
+
+.header__title--small {
+  font-family: $primary-font;
+  color: $secondary-color;
+  font-size: 4rem;
+}
+
+.header__desc {
+  color: $tertiary-color;
+  font-size: 1.2em;
+  font-family: $japanese-font;
+  margin: 10px 0;
+}
+
+.content {
+  margin: 50px 15%;
+  width: 70%;
+  text-align: justify;
+  font-family: $primary-font;
+  color: $secondary-color;
+  font-size: 1.2em;
+}
+
+.content p {
+  margin-top: 10px;
+}
+
+.main {
+  display: grid;
+  width: 70%;
+  margin: 70px 15% 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 20vw;
+  column-gap: 50px;
+  row-gap: 50px;
+}
+
+.main__card__holder {
+  position: relative;
+}
+
+.main__card {
+  text-decoration: none;
+  width: 90%;
+  position: absolute;
+  bottom: 0px;
+  height: 100%;
+  padding: 0 5%;
+  background-color: $secondary-color;
+  border-radius: 5%;
+  display: grid;
+  grid-template-rows: 4fr 1fr 1fr;
+  transition: all 0.3s;
+  box-shadow: 0px 2px 5px $shadow-color;
+}
+
+.main__card:hover {
+  bottom: 5px;
+  box-shadow: 0px 5px 15px $shadow-color;
+}
+
+.main__card:active {
+  bottom: 5px;
+  box-shadow: 0px 5px 15px $shadow-color;
+}
+
+.main__card__header {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-size: 2em;
+}
+
+.main__card__desc {
+  font-family: $primary-font;
+  color: $tertiary-color;
+}
+
+.footer {
+  margin: 50px 15%;
+  width: 70%;
+  text-align: center;
+  color: white;
+  font-family: $primary-font;
+}
