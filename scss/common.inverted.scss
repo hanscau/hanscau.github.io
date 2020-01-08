@@ -54,7 +54,8 @@ code {
 
 .img {
   width: 100%;
-  margin: 15px 0;
+  margin: 15px auto;
+  max-width: 750px;
 }
 
 .navbar {
@@ -284,6 +285,6 @@ code {
   margin: 50px 15%;
   width: 70%;
   text-align: center;
-  color: white;
+  color: $secondary-color;
   font-family: $primary-font;
 }
