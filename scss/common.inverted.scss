@@ -16,8 +16,40 @@ body {
   width: 100vw;
 }
 
+code {
+  width: 80%;
+}
+
 .spacer {
   flex: 1 0;
+}
+
+.hr {
+  height: 2px;
+  width: 100%;
+  margin: 15px 0;
+  background-color: $secondary-color;
+}
+
+.note {
+  background-color: $secondary-color;
+  color: $primary-color;
+  padding: 10px;
+  margin: 15px 0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  text-align: left;
+}
+
+.code {
+  border: 1px solid $secondary-color;
+  margin: 15px 0;
+  padding: 15px;
+  width: calc(100% - 30px);
+  text-align: left;
+  white-space: nowrap;
+  overflow-x: scroll;
+  text-overflow: none;
 }
 
 .navbar {
@@ -185,6 +217,10 @@ body {
 }
 
 .content p {
+  margin-top: 10px;
+}
+
+.content h3 {
   margin-top: 10px;
 }
 

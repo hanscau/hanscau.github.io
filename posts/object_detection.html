@@ -35,12 +35,74 @@
         </nav>
     </div>
     <div class="header">
-        <p class="header__title">Header</p>
-        <p class="header__desc">プロジェクトとブログ</p>
+        <p class="header__title--small">Object Detection</p>
+        <p class="header__desc">物体検出</p>
     </div>
 
-    <hr>
+    <div class="content">
 
+        <p>One of my project require me to use Object Detection to detect ping pong ball
+            so that it can navigate to it. Thus, I need a real-time object detection software
+            to do this. Something that is fast enough to detect the object in realtime and
+            without using so much computing power (Since I need it to run in a Raspberry Pi).</p>
+        <p>So here I am trying to use...</p>
+        <h3>YOLO:Real-Time Object Detection</h3>
+        <div class="hr"></div>
+        <h3>Resources</h3>
+        <p>Linux Ubuntu 16.04</p>
+        <p>CUDA Toolkit 9.0</p>
+        <p>OpenCV 3.4.0</p>
+        <p>Darknet - YOLO</p>
+        <p>Object to detect</p>
+        <p>Webcam</p>
+        <div class="note">NOTE: Only use the version denotated above. Other version might not be compatible
+            with each other</div>
+        <p>Assuming you have done everything above and there was no problem with it, we can start
+            doing the Object Detection stuff</p>
+        <p>Start by setting up YOLO</p>
+        <p>Open Terminal and start installation</p>
+        <div class="note">NOTE: "Ctrl + Alt + T" will open up Terminal</div>
+        <p>If git is not installed, run the following</p>
+        <div class="code">
+            sudo apt-get install git
+        </div>
+        <p>If or after git is installed, run the folloing</p>
+        <div class="code">
+            cd ~<br>
+            git clone https://github.com/pjreddie/darknet<br>
+        </div>
+        <p>Then go to the darknet folder that you have clone and open up "makefile"</p>
+        <p>In the file, set OpenCv=1 and CUDA=1. Then from the folder, open terminal and run the following</p>
+        <div class="code">
+            make
+        </div>
+        <h3>Testing YOLO</h3>
+        <p>While still in the darknet directory, run this to get the sample weight(model) for testing</p>
+        <div class="code">
+            wget https://pjreddie.com/media/files/yolov3.weights
+        </div>
+        <p>Then, still in the same directory, run the detector for testing</p>
+        <div class="code">
+            ./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+        </div>
+        <p>After some text flash by, an image will be produced in the same directory</p>
+        <p>If you navigate to the folder /home/(user_name)/darknet, there will be a prediction.jpg</p>
+        <img src="img/prediction.png" alt="Prediction image" id="blogImg">
+        <p>If you see the image above, it means that YOLO is correctly installed!</p>
+        <p>Now with YOLO installed properly(FOR NOW), we can begin preparing for training</p>
+        <p>Download the following files: <a href="resources/dataset_preparing.rar">Preparing Dataset</a></p>
+        <p>Download and extract the file to Desktop</p>
+        <p>Now, get the item that you want to detect and shoot a 2 minute video of it</p>
+        <!-- INSERT A GIF OF THE PING PONG VIDEO-->
+        <p>After taking a video of it, put the video file inside dataset_preparing/recordVideo</p>
+        <p>Using a text editor, open up separate.py and change the following. In line 2</p>
+        <div class="code">
+            #change "WIN_20180903_14_23_55_Pro.mp4" to your own video file name<br>
+            #Don't forget your video extension<br>
+            2. vidcap = cv2.VideoCapture('WIN_20180903_14_23_55_Pro.mp4')
+        </div>
+
+    </div>
 
     <div class="footer">&copy;Hanscau 2020</div>
 </body>
