@@ -16,8 +16,46 @@ body {
   width: 100vw;
 }
 
+code {
+  width: 80%;
+}
+
 .spacer {
   flex: 1 0;
+}
+
+.hr {
+  height: 2px;
+  width: 100%;
+  margin: 15px 0;
+  background-color: $secondary-color;
+}
+
+.note {
+  background-color: $secondary-color;
+  color: $primary-color;
+  width: calc(100% - 30px);
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.code {
+  border: 1px solid $secondary-color;
+  margin: 15px 0;
+  padding: 15px;
+  width: calc(100% - 32px);
+  text-align: left;
+  white-space: pre;
+  overflow-x: auto;
+  text-overflow: none;
+}
+
+.img {
+  width: 100%;
+  margin: 15px auto;
+  max-width: 750px;
 }
 
 .navbar {
@@ -111,7 +149,7 @@ body {
   bottom: 0;
   transform: translateX(100vw);
   transition: transform 0.2s;
-  background: white;
+  background: $secondary-color;
   z-index: 1;
   display: flex;
   flex-flow: column;
@@ -182,10 +220,16 @@ body {
   font-family: $primary-font;
   color: $secondary-color;
   font-size: 1.2em;
+  word-wrap: break-word;
 }
 
 .content p {
   margin-top: 10px;
+}
+
+.content h3 {
+  margin-top: 30px;
+  margin-bottom: 18px;
 }
 
 .main {
@@ -242,6 +286,6 @@ body {
   margin: 50px 15%;
   width: 70%;
   text-align: center;
-  color: white;
+  color: $secondary-color;
   font-family: $primary-font;
 }
