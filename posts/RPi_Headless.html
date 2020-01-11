@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hanscau's Projects and Blogs</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/common.inverted.min.css">
+    <link rel="stylesheet" href="../css/common.tablet.min.css">
+    <link rel="stylesheet" href="../css/common.mobile.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="navbar__title" href="../index.html">Hanscau's</a>
+        <div class="spacer"></div>
+        <a href="../index.html" class="navbar__links">Projects and Blogs</a>
+        <a href="../art.html" class="navbar__links">Art</a>
+        <a href="../about.html" class="navbar__links">About</a>
+        <nav class="navbar__container">
+            <input type="checkbox" id="trigger" class="navbar__input" />
+            <label class="navbar__label" aria-label="open main navigation" for="trigger"><span
+                    class="navbar__label__span"></span></label>
+            <div class="navbar__menu">
+                <div class="navbar__spacer"></div>
+                <a href="../index.html" class="navbar__menu__links">Projects and Blogs</a>
+                <a href="../art.html" class="navbar__menu__links">Art</a>
+                <a href="../about.html" class="navbar__menu__links">About</a>
+            </div>
+        </nav>
+    </div>
+    <div class="header">
+        <p class="header__title--small">RaspberryPi Headless</p>
+        <p class="header__desc">物体検出</p>
+    </div>
+
+    <div class="content">
+        <div class="hr"></div>
+        <h3>Resources</h3>
+        <p>RaspberryPi</p>
+        <p>SD card (recommended 8Gb)</p>
+        <p>SD card reader (optional)</p>
+        <h4>Internet connection thingy (choose 1)</h4>
+        <p>Ethernet cable (with access to ethernet internet)</p>
+        <p>USB Wifi adapter</p>
+        <h4>Software</h4>
+        <p>Raspberry OS <a href="https://www.raspberrypi.org/downloads/raspbian/"> Raspbian</a></p>
+        <p>SD card Flashing software <a href="https://etcher.io/">Etcher</a></p>
+        <p>SSH connection software <a href="https://www.putty.org/">Putty</a></p>
+        <p>VNC connection software <a href="https://www.tightvnc.com/">TightVNC</a></p>
+        <p>IP address scanning software <a href="https://angryip.org/download/#windows">AngryIP</a></p>
+        <h3>Overview</h3>
+        <p>We will be trying to setup a RaspberryPi without any keyboard, mouse or monitor. In other words
+            a "Headless" connection.</p>
+        <p>This can be achieved by:</p>
+        <p>1. Connecting the RPi to the internet without an interface</p>
+        <p>2. SSHing into the RPi to start a VNC</p>
+        <p>3. Using a VNC for remote control using your PC</p>
+        <div class="note">
+            NOTE: Rpi = RaspberryPi
+        </div>
+        <h3>Setting up RaspberryPi</h3>
+        <p>Download any Raspberry OS that you want and flash it using Etcher to your SD card</p>
+        <p>I will be using Raspbian Strech Lite because I need all the extra space I can get from the RPi</p>
+        <p>After flashing is complete with verification by Etcher we can start by conneting the RPi to the internet</p>
+        <div class="note">
+            NOTE: IF ETCHER VERIFCATION FAIL, CONTINUE AT YOUR OWN RISKED <br>(NOT RECOMMENDED)
+        </div>
+        <h3>Connecting to the web</h3>
+        <h3>Ethernet</h3>
+        <p>Connect RPi to internet using ethernet</p>
+        <p>Plug in and go to the next part</p>
+        <h3>Wifi</h3>
+        <h4>Headless connection</h4>
+        <p>Using a card reader, insert in the SD card and open up the "boot" partition</p>
+        <p>Make a new file named "wpa_supplicant.conf"</p>
+        <p>In the file add in the following</p>
+        <div class="code">
+            country=fr<br>
+            update_config=1<br>
+            ctrl_interface=/var/run/wpa_supplicant<br>
+            <br>
+            network={<br>
+            scan_ssid=1<br>
+            ssid="RouterName"<br>
+            psk="Password"<br>
+            key_mgmt=WPA-PSK<br>
+            }
+        </div>
+        <p>Change "RounterName" to the name of the Wifi you want to connect</p>
+        <p>Change "Password" to the password of the Wifi</p>
+        <p>If your wifi is using WPE, change "key_mgmt=WPA-PSK" to</p>
+        <div class="code">
+            key_mgmt=NONE
+        </div>
+        <p>If your wifi does not have a password, just enter in the ssid, delete the "psk" and "key_mgmt" line</p>
+        <p>Its okay if your country code is different....</p>
+        <div class="note">
+            NOTE: Add in the name and password with quotation mark
+        </div>
+        <h3>SSHing to 3.1415265</h3>
+        <p>Before pluging the SD card into the RPi, also in the "boot" partition create a file
+            called "ssh". No extension, no nothing, just a file that is called "ssh", this is to
+            prompt the RPi to enable SSH connection</p>
+        <p>Next, plug the SD card into the RPi and also the Wifi adapter(if you are using Wifi for connection)</p>
+        <p>Then, after waiting for a bit for the RPi to boot and connect to the Wifi, use AngryIP to get the IP of your
+            RPi, it should be under the host name raspberrypi</p>
+        <p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
+            the port to be default (22) and select SSH. Connect!</p>
+        <img class="img" src="../assets/rpi_headless/SSHConnection.JPG" alt="SSH connection" id="blogImg">
+        <p>When SSH connects, login as (if you didn't change it)</p>
+        <p>id=pi</p>
+        <p>password=raspberry</p>
+        <div class="note">
+            NOTE: When typing password, you cannot see the word... its a Linux thing i think
+        </div>
+        <p>Now with SSH connection complete, we will setup the VNC</p>
+        <h3>Veins N Capillary poping up trying to do this</h3>
+        <p>The reason why you would need a VNC connection is so that there is a graphical interface, an SSH can only
+            provide a comandline interface control</p>
+        <p>To continue, now having a SSH control to the Rpi, lets get the VNC software. Run the following</p>
+        <div class="code">
+            sudo apt-get upgrade<br>
+            sudo apt-get update<br>
+            sudo apt-get install tightvncserver<br>
+        </div>
+        <p>If installation is complete, start the vnc!</p>
+        <div class="code">
+            /usr/bin/tightvncserver
+        </div>
+        <img class="img" src="../assets/rpi_headless/VNC_ON.JPG" alt="VNC on" id="blogImg">
+        <p>When the code is executed, it will prompt for a password so just give it a password</p>
+        <p>After that, it will ask for a viewonly password, just no it</p>
+        <p>With the VNC on your RPi running, go to your PC and start the TightVNC Viewer (search it up its not
+            automatically in your desktop...)</p>
+        <p>using the same IP as when you SSH, put it as the "Remote Host" in the following fashion</p>
+        <p>192.168.0.10::5901</p>
+        <p>Change "192.168.0.10" to your own IP address, but the port number should be the same</p>
+        <img class="img" src="../assets/rpi_headless/VNCConnection.JPG" alt="VNC Connetion Pic" id="blogImg">
+        <p>Then connect, it will prompt for a password so enter the password you setup previously and you are connected!
+        </p>
+        <p>CONGRATZ!!!!</p>
+        <h3>Discalmer</h3>
+        <p>Take note that the VNC will not automatically start up when you start the RPi, you have to SSH into it to
+            start
+            the VNC first before connecting to it using VNC</p>
+        <p>Also take note that the "Lite" version of the Raspbian does not contain a GUI, so VNCing into it will produce
+            a error.
+            If you want to have the graphical interace, run the following</p>
+        <div class="code">
+            sudo apt install raspberrypi-ui-mods
+        </div>
+        <h3>If you lazy and want VNC to start up automatically with RPi</h3>
+        <p>Here: <a href="http://www.penguintutor.com/linux/tightvnc"> PenguinTutor VNC auto start</a></p>
+    </div>
+
+    <div class="footer">&copy;Hanscau 2020</div>
+</body>
+
+</html>

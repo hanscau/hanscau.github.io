@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hanscau's Projects and Blogs</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/common.inverted.min.css">
+    <link rel="stylesheet" href="../css/common.tablet.min.css">
+    <link rel="stylesheet" href="../css/common.mobile.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="navbar__title" href="../index.html">Hanscau's</a>
+        <div class="spacer"></div>
+        <a href="../index.html" class="navbar__links">Projects and Blogs</a>
+        <a href="../art.html" class="navbar__links">Art</a>
+        <a href="../about.html" class="navbar__links">About</a>
+        <nav class="navbar__container">
+            <input type="checkbox" id="trigger" class="navbar__input" />
+            <label class="navbar__label" aria-label="open main navigation" for="trigger"><span
+                    class="navbar__label__span"></span></label>
+            <div class="navbar__menu">
+                <div class="navbar__spacer"></div>
+                <a href="../index.html" class="navbar__menu__links">Projects and Blogs</a>
+                <a href="../art.html" class="navbar__menu__links">Art</a>
+                <a href="../about.html" class="navbar__menu__links">About</a>
+            </div>
+        </nav>
+    </div>
+    <div class="header">
+        <p class="header__title--small">Ping Pong Ball Detection</p>
+        <p class="header__desc">物体検出</p>
+    </div>
+
+    <div class="content">
+        <div class="hr"></div>
+        <h3>Abstract</h3>
+        <p>For a part of one of my project, we were needed to detect a ping pong ball using a webcam live so that
+            our robot can navigate to it. Thus, this is the painful journey of trial, testing and crying that I went
+            through...</p>
+        <p>Enjoy!</p>
+        <h3>What I end up doing</h3>
+        <p>In the end, the sweet spot combination that was used was a...</p>
+        <p>Raspberry Pi 3</p>
+        <p>Movidius(Intel's Neural Compute Stick)</p>
+        <p>Webcam</p>
+        <p>And darknet's tiny-yolov2 model that is converted to caffemodel which is then converted to a "graph"
+            (Movidius's model)</p>
+        <p>If you just want to know how the above is done click <a href="#">HERE</a></p>
+        <p>If you are still here, then you are just a sadist who loves to hear people suffer. Oh well, I'm writing this
+            so that I wouldn't
+            have to repeat whatever I have done to reach this state too, so let's go</p>
+        <h3>Chapter 1: And so it begins...</h3>
+        <p>For the project, we needed a small form factor object detection device that can read a live webcam feed to
+            locate a ping pong
+            ball and send whatever signal it has to depending on the position of the ball in the video</p>
+        <p>I was doing this AFTER I was just finished training the object detection model over on my computer using
+            darknet's yolov2. So
+            after a little Googling, I found out that it was possible to use darknet's model and OpenCV 4.0.0-pre to
+            just detect a webcam stream.
+            Just like that the fist solution comes to mind and I immediately start prototyping.</p>
+        <p>Ubuntu 16.04</p>
+        <p>OpenCV 4.0.0-pre</p>
+        <p>a lil python code (THAT IS NOT MINE)</p>
+        <p>And walah, it worked! Here is the code</p>
+        <a href="resources/OpenCVxDarknet.py">OpenCV Object Detection with Darknet's yolov2</a>
+        <p>Just install the latest OpenCV with its contrib repo and run the python file with a terminal</p>
+        <div class="note">
+            DISCLAIMER: I DID NOT WRITE THIS CODE, this guy did --> Arun Ponnusamy
+        </div>
+        <div class="code">
+            python OpenCVxDarknet.py --weight [.weight file] --config [.cfg file] --classes [file with all the names of
+            the classes]
+        </div>
+        <p>Just change all the [things like this] to the directory of the respective file</p>
+        <p>It worked fine so I decided to bring the thing to a Raspberry Pi, just like what I need it to do</p>
+        <p>So I loaded up my Raspbery Pi 1 B (yes "ONE") and tried installing OpenCV</p>
+        <p>...</p>
+        <p>THE COMPILING OF OPENCV TOOK 3 WHOLE DAY</p>
+        <p>I literally let my Raspberry Pi run for a whole 3 day just compiling OpenCV from source</p>
+        <p>Not only that, IT FAILED AT 90%!!!!</p>
+        <p>After crying myself to sleep, I comforted myself by installing the pre-compiled OpenCV</p>
+        <div class="code">
+            sudo apt-get install python-opencv
+        </div>
+        <p>After that I opened up python interactive interpreter and run the following</p>
+        <div class="code">
+            import cv2<br>
+            print cv2.__version__
+        </div>
+        <p>And what was printed made me tear up a lil</p>
+        <div class="code">
+            OpenCV 2.4.0
+        </div>
+        <p>THIS IS NOT THE VERSION I NEED</p>
+        <p>Btw, running the object detection python file will just lead to an error, so don't bother</p>
+        <p>With this, I need another plan. So making the best with what I had, I found out that I could run
+            circle detection using OpenCV 2.4.0. And since ping pong ball is a circle....Yeah</p>
+        <h3>Chapter 2: Detecting Circle</h3>
+        <p>Again, I Googled for codes to detect circle using OpenCV and came across HOUGH_CIRCLE_DETECTION. So I
+            downloaded it
+            and modified it so that it uses a webcam for feed instead</p>
+        <p>Here is the code which again I DIDN'T WRITE</p>
+        <a href="resources/OpenCVxCircleDetection">Detecting round stuff with OpenCV</a>
+        <div class="code">
+            #If you got an error about no such module as cv2.cv.CV_HOUGH_GRADIENT change it to this<br>
+            cv2.HOUGH_GRADIENT
+        </div>
+        <p>Again, it worked so but knowing the limitation of my Raspberry Pi 1 <br>(Yes again, ONE) I tried to optimize
+            the code</p>
+        <p>The first was by only allowing it to detect up to 2 circles, and the second by lowering the resolution of the
+            image that
+            it will be proccesing</p>
+        <p>This was met with... At least it worked :D. But the image was more like a slide show than a video. And... It
+            crashes when it
+            detects any circle at all... so there was that</p>
+        <p>[INTERNAL SCREAMING]</p>
+        <h3>Chapter 3: Ascending from Hell</h3>
+        <p>Afer realising that NO ONE, and I mean NO ONE THAT HAS A PROPER WORKING MIND, will actually use Raspberry Pi
+            1 for Machine Vision
+            and expect it to puke out an usable framerate. Thus, I went back to my teacher and borrowed a Raspberry Pi 3
+            B instead.</p>
+        <p>Upgrading from a RasPi 1 to RasPi 3 was like going from a Nokia flip phone to an iPhone Xs (not that I have
+            used one before) but
+            I am pretty sure it will feel the same</p>
+        <p>Then I procced to repeat using OpenCV 4.0.0-pre's dnn module to infer from darknet's model for object
+            detection</p>
+        <p>This time, the whole installation took a little under 3 hours and it works. I repeat, THE COMIPLATION DID NOT
+            STOP AT 90%!!!!</p>
+        <p>I then procced to test the thing out and it works... at least for the purpose of a slideshow. The FPS was
+            awful and the latency was no better.
+            The video had a 7 second delay, as if I was looking to the past. And the framerates were no better, it was
+            like i said, a slideshow</p>
+        <p>Back to the drawing board</p>
+        <p>I then vaguely remember our teacher having this thing called the "Movidius", it is supposed to be a inference
+            acceleration. Hence, I asked
+            to borrow the item and procced on testing</p>
+        <h3>Chapter 4: Hope</h3>
+        <p>So firstly, you have to install the sdk for Movidius</p>
+        <p>BTW, Movidius is a Intel NCS (Neural Compute Stick). It is basically a GPU (or VPU for Vision Proccesing Unit
+            as they call it) that
+            can be pluged in using the USB port and somehow by magic it enhances Machine Learning Inference? At this
+            point, I am just hoping
+            for a miracle that could give me the solution that i need</p>
+        <p>So for installtion of NCSDK 2.0</p>
+        <p>Do the following</p>
+        <div class="code">
+            git clone -b ncsdk2 http://github.com/Movidius/ncsdk<br>
+            cd ncsdk<br>
+            make install
+        </div>
+        <p>BUT BEFORE YOU DO THE ABOVE, there is something you can do to accelerate the installation</p>
+        <p>Just type the following in a terminal and run it</p>
+        <div class="code">
+            sudo nano /etc/dphys-swapfile
+        </div>
+        <p>This will open the file, scroll down to CONF_SWAPSIZE and change 100 to something like 1024</p>
+        <p>Then run the follwing</p>
+        <div class="code">
+            sudo /etc/init.d/dphys-swapfile restart
+        </div>
+        <p>You may now install ncsdk 2.0</p>
+        <p>The installation actually takes quite a while so just wait</p>
+        <p>Next, if your model is from caffe or tensorflow, it is easier. For tensorflow..... I dont know, just Google
+            it, it is supported.
+            For Caffe, just run the following to compile your caffemodel into a movidius "graph" (you would later use
+            this for inference)</p>
+        <div class="code">
+            mvNCCompile [.prototxt] -w [.caffemodel] -s 12<br>
+            #Example mvNCCompile yoloV2Tiny20.prototxt -w yoloV2Tiny20.caffemodel -s 12
+        </div>
+        <p>Then there are quite alot of code in the internet that could just use this "graph" and run inference with it,
+            but I was not using
+            a caffemodel, I trained it with darknet's yolov2 model WHICH IS NOT SUPPORTED (at least in the time of
+            writing)</p>
+        <p>Thus, I need to research my way around making it possible and have finally come up with a solution</p>
+        <h3>Chapter 5: Finale</h3>
+        <p>The work around that I have come up with is to convert my yolo model into caffe model which I can then
+            convert into a NCS model for
+            inference</p>
+        <p>Firsly clone this repo</p>
+        <div class="code">
+            git clone https://github.com/duangenquan/YoloV2NCS.git
+        </div>
+        <div class="note">
+            This only works with Darknet's Yolov2 tiny (which is what I used)
+        </div>
+        <p>Navigate to the cloned folder and open it</p>
+        <p>Then get your darknet's .weight and .cfg file and copy it inside models/yolomodels</p>
+        <p>Make sure that both the .weight and the .cfg file have the same name. Eg (yoloTiny.weight and yoloTiny.cfg)
+        </p>
+        <p>Inside the models folder, run the following in terminal</p>
+        <div class="code">
+            source convertyo.sh
+        </div>
+        <p>After convertion is complete, your caffemodel and prototxt file will be in the caffemodels folder</p>
+        <p>Go back to root folder of the repo and navigate to src/Region.cpp</p>
+        <p>Change class name to = "class_name" (It is in a form of list)</p>
+        <p>Go back to root again, and navigate to detectionExample/ObjectWrapper.py</p>
+        <p>Change self.classes to correct class number</p>
+        <p>Change self.thershold to a very low number... (for safety)</p>
+        <p>In the same folder, edit Main.py</p>
+        <p>Change "cap = cv2.VideoCapture(videofile)" in line 43 to "cap = cv2.VideoCapture(0)"</p>
+        <p>Navigate back to the root folder and generate graph using the same command. This is so that the graph file
+            will be generated in the repo root folder</p>
+        <div class="note">
+            NOTE: You can move item using the terminal with => mv (source path) (destination path)
+        </div>
+        <div class="code">
+            mvNCCompile .prototxt -w .caffemodel -s 12
+        </div>
+        <p>Still in the root folder of the repo make the file</p>
+        <div class="code">
+            make
+        </div>
+        <p>Then run the detection code</p>
+        <div class="code">
+            python3 detectionExample/Main.py --video 0 --graph [graph name]
+        </div>
+        <p>And then you are done :D</p>
+    </div>
+
+    <div class="footer">&copy;Hanscau 2020</div>
+</body>
+
+</html>

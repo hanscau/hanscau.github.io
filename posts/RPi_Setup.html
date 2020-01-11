@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hanscau's Projects and Blogs</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/common.inverted.min.css">
+    <link rel="stylesheet" href="../css/common.tablet.min.css">
+    <link rel="stylesheet" href="../css/common.mobile.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a class="navbar__title" href="../index.html">Hanscau's</a>
+        <div class="spacer"></div>
+        <a href="../index.html" class="navbar__links">Projects and Blogs</a>
+        <a href="../art.html" class="navbar__links">Art</a>
+        <a href="../about.html" class="navbar__links">About</a>
+        <nav class="navbar__container">
+            <input type="checkbox" id="trigger" class="navbar__input" />
+            <label class="navbar__label" aria-label="open main navigation" for="trigger"><span
+                    class="navbar__label__span"></span></label>
+            <div class="navbar__menu">
+                <div class="navbar__spacer"></div>
+                <a href="../index.html" class="navbar__menu__links">Projects and Blogs</a>
+                <a href="../art.html" class="navbar__menu__links">Art</a>
+                <a href="../about.html" class="navbar__menu__links">About</a>
+            </div>
+        </nav>
+    </div>
+    <div class="header">
+        <p class="header__title--small">RaspberryPi + SSH</p>
+        <p class="header__desc">物体検出</p>
+    </div>
+
+    <div class="content">
+        <div class="hr"></div>
+        <h3>Resources</h3>
+        <p>Rasbpian OS Flashed on SD card</p>
+        <p><a href="resources/ssh">This file here</a></p>
+        <p><a href="https://www.putty.org/">Putty</a></p>
+        <h3>Setting up RaspberryPi</h3>
+        <p>Copy the downloaded file above ("ssh") into the "boot" folder
+            of the RPi SD card</p>
+        <div class="note">
+            NOTE: Rpi = RaspberryPi
+        </div>
+        <h3>Connecting to the web</h3>
+        <h3>Ethernet</h3>
+        <p>Connect RPi to internet using ethernet</p>
+        <p>Plug in and skip the next part</p>
+        <h3>Wifi</h3>
+        <h4>Headless connection</h4>
+        <p>Using a card reader, insert in the SD card and open up the "boot" partition</p>
+        <p>Make a new file named "wpa_supplicant.conf"</p>
+        <p>In the file add in the following</p>
+        <div class="code">
+            country=fr<br>
+            update_config=1<br>
+            ctrl_interface=/var/run/wpa_supplicant<br>
+            <br>
+            network={<br>
+            scan_ssid=1<br>
+            ssid="RouterName"<br>
+            psk="Password"<br>
+            key_mgmt=WPA-PSK<br>
+            }
+        </div>
+        <p>Change "RounterName" to the name of the Wifi you want to connect</p>
+        <p>Change "Password" to the password of the Wifi</p>
+        <p>If your wifi is using WPE, change "key_mgmt=WPA-PSK" to</p>
+        <div class="code">
+            key_mgmt=NONE
+        </div>
+        <p>If your wifi does not have a password, just enter in the ssid, delete the "psk" and "key_mgmt" line</p>
+        <p>Its okay if your country code is different....</p>
+        <div class="note">
+            NOTE: Add in the name and password with quotation mark
+        </div>
+        <p>Don't forget to save!</p>
+        <h4>GUI Connection</h4>
+        <p>In the upper left of your desktop there should be a WiFi symbol...</p>
+        <p>Connect it normally?</p>
+        <div class="note">
+            NOTE: for a new RPi boot, id="pi" password="raspberry"
+        </div>
+        <h4>Command Line connection</h4>
+        <div class="code">
+            sudo raspi-config
+        </div>
+        <p>Navigate using arrowkey and connect to wifi</p>
+        <h3>Connecting to 3.1415265</h3>
+        <p>Run the following in terminal to get IP of the Rpi</p>
+        <div class="code">
+            ip addr show
+        </div>
+        <p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
+            the port to be default (22) and select SSH. Connect!</p>
+        <p>When SSH connects, login as (if you didn't change it)</p>
+        <p>id=pi</p>
+        <p>password=raspberry</p>
+        <div class="note">
+            NOTE: When typing password, you cannot see the word... its a Linux thing i think
+        </div>
+        <p>And you are connected!</p>
+        <h3>Headless configuration</h3>
+        <p>Another way you can get the IP of your RPi after its connected to the WiFi is with Angry IP Scanner</p>
+        <p><a href="https://angryip.org/download/#windows">Angry IP Scanner</a></p>
+        <p>Or you could just access the admin panel of your router and locate the IP adress of the hostname
+            "raspberrypi"</p>
+    </div>
+
+    <div class="footer">&copy;Hanscau 2020</div>
+</body>
+
+</html>
