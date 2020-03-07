@@ -280,6 +280,26 @@ code {
   color: $tertiary-color;
 }
 
+.card {
+  width: 100%;
+  background-color: $secondary-color;
+  color: $primary-color;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+
+  @at-root #{&}__portrait {
+    width: 148px;
+    height: 190px;
+  }
+
+  @at-root #{&}__content {
+    margin-left: 32px;
+  }
+}
+
 .footer {
   margin: 50px 15%;
   width: 70%;
