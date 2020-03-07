@@ -8,39 +8,36 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="css/common.min.css">
     <link rel="stylesheet" href="css/common.tablet.min.css">
     <link rel="stylesheet" href="css/common.mobile.min.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+    <script>
+        $(function () {
+            $("nav").load("nav.html");
+            $("footer").load("footer.html");
+        });
+    </script>
+
 </head>
 
 <body>
-    <div class="navbar">
-        <a class="navbar__title" href="index.html">Hanscau's</a>
-        <div class="spacer"></div>
-        <a href="index.html" class="navbar__links">Projects and Blogs</a>
-        <a href="art.html" class="navbar__links">Art</a>
-        <a href="about.html" class="navbar__links">About</a>
-        <nav class="navbar__container">
-            <input type="checkbox" id="trigger" class="navbar__input" />
-            <label class="navbar__label" aria-label="open main navigation" for="trigger"><span
-                    class="navbar__label__span"></span></label>
-            <div class="navbar__menu">
-                <div class="navbar__spacer"></div>
-                <a href="index.html" class="navbar__menu__links">Projects and Blogs</a>
-                <a href="art.html" class="navbar__menu__links">Art</a>
-                <a href="about.html" class="navbar__menu__links">About</a>
-            </div>
-        </nav>
-    </div>
+    <nav>
+        <!-- From nav.html -->
+    </nav>
+
     <div class="header">
         <p class="header__title">Art.</p>
         <p class="header__desc">アート</p>
     </div>
 
-
-
-    <div class="footer">&copy;Hanscau 2020</div>
+    <footer>
+        <!-- From footer.html -->
+    </footer>
 
     <script src="" async defer></script>
 </body>
