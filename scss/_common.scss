@@ -313,8 +313,14 @@ code {
   border-radius: 16px;
 
   @at-root #{&}__portrait {
-    width: 148px;
-    height: 190px;
+    flex: 0 0 160px;
+    width: 160px;
+    height: 160px;
+    background: url("../assets/portrait.jpg") 50% 50% no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    border: white 4px solid;
+    box-shadow: #00000044 0 0 8px;
   }
 
   @at-root #{&}__content {

@@ -24,4 +24,12 @@
   .main__card__desc {
     font-size: 0.8em;
   }
+
+  .card {
+    flex-direction: column;
+
+    @at-root #{&}__content {
+      margin: 32px;
+    }
+  }
 }
