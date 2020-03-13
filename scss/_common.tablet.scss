@@ -1,8 +1,7 @@
 @media only screen and (max-width: 1028px) {
   .main {
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 30vw;
-    row-gap: 50px;
+    width: 700px;
   }
 
   .navbar__links {
@@ -11,18 +10,6 @@
 
   .navbar__container {
     display: block;
-  }
-
-  .main__card {
-    grid-template-rows: 2fr 1fr 1fr;
-  }
-
-  .main__card__header {
-    font-size: 1.4em;
-  }
-
-  .main__card__desc {
-    font-size: 0.8em;
   }
 
   .card {

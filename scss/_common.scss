@@ -10,8 +10,6 @@
 
 body {
   background-color: $primary-color;
-  overflow-x: hidden;
-  width: 100vw;
 }
 
 code {
@@ -254,12 +252,12 @@ code {
 
 .main {
   display: grid;
-  width: 70%;
-  margin: 70px 15% 0;
+  width: 1028px;
+  margin: 70px auto;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 20vw;
-  column-gap: 50px;
-  row-gap: 50px;
+  grid-auto-rows: 180px;
+  column-gap: 32px;
+  row-gap: 32px;
 }
 
 .main__card__holder {
@@ -268,26 +266,26 @@ code {
 
 .main__card {
   text-decoration: none;
-  width: 90%;
-  position: absolute;
-  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
   height: 100%;
-  padding: 0 5%;
   background-color: $secondary-color;
-  border-radius: 5%;
-  display: grid;
-  grid-template-rows: 4fr 1fr 1fr;
+  border-radius: 32px;
+  padding: 8px 32px;
+  box-sizing: border-box;
   transition: all 0.3s;
   box-shadow: 0px 2px 5px $shadow-color;
 }
 
 .main__card:hover {
-  bottom: 5px;
+  transform: translateY(-5px);
   box-shadow: 0px 5px 15px $shadow-color;
 }
 
 .main__card:active {
-  bottom: 5px;
+  transform: translateY(-5px);
   box-shadow: 0px 5px 15px $shadow-color;
 }
 
@@ -295,6 +293,7 @@ code {
   font-family: $primary-font;
   color: $primary-color;
   font-size: 2em;
+  margin-bottom: 8px;
 }
 
 .main__card__desc {
