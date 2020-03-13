@@ -2,14 +2,15 @@
   width: 70%;
   margin: auto;
   margin-top: 32px;
+  display: block;
 
   @media screen and (max-width: 1028px) {
     width: 85%;
   }
 
   @media screen and (max-width: 700px) {
-    width: 100%;
-    margin: 0 16px;
+    width: 90vw;
+    margin: 0 auto;
     box-sizing: border-box;
   }
 }
@@ -23,6 +24,10 @@
   border-radius: 8px;
 
   transition: all 0.3s;
+
+  @media screen and (max-width: 700px) {
+    height: 180px;
+  }
 
   &:hover {
     box-shadow: #00000055 0 4px 16px;
