@@ -3,6 +3,11 @@
   src: url("../assets/Jonathan\ Ball\ -\ Acre-Medium.otf");
 }
 
+@font-face {
+  font-family: "Consolas";
+  src: url("../assets/Consolas.ttf");
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -46,6 +51,8 @@ code {
   white-space: pre;
   overflow-x: auto;
   text-overflow: none;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.8em;
 }
 
 .img {
