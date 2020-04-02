@@ -1,109 +1,142 @@
 <!DOCTYPE html>
 <html class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Hanscau's Projects and Blogs</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hanscau's Projects and Blogs</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"
+		></script>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="css/main.min.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap"
+			rel="stylesheet"
+		/>
 
-    <link rel="stylesheet" href="css/main.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+		<script>
+			$(function() {
+				$("nav").load("nav.html")
+				$("footer").load("footer.html")
+			})
+		</script>
+	</head>
 
-    <script>
-        $(function () {
-            $("nav").load("nav.html");
-            $("footer").load("footer.html");
-        });
-    </script>
+	<body>
+		<nav>
+			<!-- From nav.html -->
+		</nav>
 
-</head>
+		<div class="header">
+			<p class="header__title">Projects and Blogs.</p>
+			<p class="header__desc">プロジェクトとブログ</p>
+		</div>
 
-<body>
+		<div class="main">
+			<div class="main__card__holder">
+				<a href="posts/ssf2020.html" class="main__card">
+					<p class="main__card__header">
+						Object Detection End-point
+					</p>
+					<p class="main__card__desc">
+						Deploying object detection on Flask web server
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a
+					href="https://hanscau.github.io/blackjack/index.html"
+					class="main__card"
+				>
+					<p class="main__card__header">Blackjack</p>
+					<p class="main__card__desc">Blackjack implemented in TS</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/general_education_3.html" class="main__card">
+					<p class="main__card__header">SPOT - GenEd3</p>
+					<p class="main__card__desc">
+						The problem and solution for the ASEAN AEC
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/object_detection.html" class="main__card">
+					<p class="main__card__header">Object Detection</p>
+					<p class="main__card__desc">
+						Using Yolo v2 for object detection
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/cuda_installation.html" class="main__card">
+					<p class="main__card__header">CUDA Installation</p>
+					<p class="main__card__desc">
+						Installing CUDA support for Linux Ubuntu
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/linux_installation.html" class="main__card">
+					<p class="main__card__header">Linux Installation</p>
+					<p class="main__card__desc">
+						Installing Linux Ubuntu 16.04
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/opencv_installation.html" class="main__card">
+					<p class="main__card__header">OpenCV Installation</p>
+					<p class="main__card__desc">Building OpenCV on Ubuntu</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/RPi_Setup.html" class="main__card">
+					<p class="main__card__header">Raspberry Pi Setup</p>
+					<p class="main__card__desc">Setting up Raspberry Pi 3</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/RPi_Headless.html" class="main__card">
+					<p class="main__card__header">
+						Headless Raspberry Pi Setup
+					</p>
+					<p class="main__card__desc">
+						Setting up Raspberry Pi 3 headlessly
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a href="posts/portable_pbb_detection.html" class="main__card">
+					<p class="main__card__header">Ping Pong Ball Detection</p>
+					<p class="main__card__desc">
+						Running Yolo v2 Object Detection on a Raspberry Pi 3
+						powered with Movidius Intel Compute Stick
+					</p>
+				</a>
+			</div>
+			<div class="main__card__holder">
+				<a
+					href="posts/invisible_tripwire_alarm.html"
+					class="main__card"
+				>
+					<p class="main__card__header">Invisible Tripwire Alarm</p>
+					<p class="main__card__desc">
+						Making a tripwire using ultrasonic sensors on an Arduino
+					</p>
+				</a>
+			</div>
+		</div>
 
-    <nav>
-        <!-- From nav.html -->
-    </nav>
+		<footer>
+			<!-- From footer.html -->
+		</footer>
 
-    <div class="header">
-        <p class="header__title">Projects and Blogs.</p>
-        <p class="header__desc">プロジェクトとブログ</p>
-    </div>
-
-    <div class="main">
-        <div class="main__card__holder">
-            <a href="https://hanscau.github.io/blackjack/index.html" class="main__card">
-                <p class="main__card__header">Blackjack</p>
-                <p class="main__card__desc">Blackjack implemented in TS</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/general_education_3.html" class="main__card">
-                <p class="main__card__header">SPOT - GenEd3</p>
-                <p class="main__card__desc">The problem and solution for the ASEAN AEC</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/object_detection.html" class="main__card">
-                <p class="main__card__header">Object Detection</p>
-                <p class="main__card__desc">Using Yolo v2 for object detection</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/cuda_installation.html" class="main__card">
-                <p class="main__card__header">CUDA Installation</p>
-                <p class="main__card__desc">Installing CUDA support for Linux Ubuntu</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/linux_installation.html" class="main__card">
-                <p class="main__card__header">Linux Installation</p>
-                <p class="main__card__desc">Installing Linux Ubuntu 16.04</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/opencv_installation.html" class="main__card">
-                <p class="main__card__header">OpenCV Installation</p>
-                <p class="main__card__desc">Building OpenCV on Ubuntu</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/RPi_Setup.html" class="main__card">
-                <p class="main__card__header">Raspberry Pi Setup</p>
-                <p class="main__card__desc">Setting up Raspberry Pi 3</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/RPi_Headless.html" class="main__card">
-                <p class="main__card__header">Headless Raspberry Pi Setup</p>
-                <p class="main__card__desc">Setting up Raspberry Pi 3 headlessly</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/portable_pbb_detection.html" class="main__card">
-                <p class="main__card__header">Ping Pong Ball Detection</p>
-                <p class="main__card__desc">Running Yolo v2 Object Detection on a Raspberry Pi 3 powered with
-                    Movidius
-                    Intel Compute Stick</p>
-            </a>
-        </div>
-        <div class="main__card__holder">
-            <a href="posts/invisible_tripwire_alarm.html" class="main__card">
-                <p class="main__card__header">Invisible Tripwire Alarm</p>
-                <p class="main__card__desc">Making a tripwire using ultrasonic sensors on an Arduino</p>
-            </a>
-        </div>
-    </div>
-
-    <footer>
-        <!-- From footer.html -->
-    </footer>
-
-    <script src="" async defer></script>
-</body>
-
+		<script src="" async defer></script>
+	</body>
 </html>

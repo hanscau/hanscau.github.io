@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Hanscau's Projects and Blogs</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="../css/main.inverted.min.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+
+	<body>
+		<div class="navbar">
+			<a class="navbar__title" href="../index.html">Hanscau's</a>
+			<div class="spacer"></div>
+			<a href="../index.html" class="navbar__links">Projects and Blogs</a>
+			<a href="../design.html" class="navbar__links">Design</a>
+			<a href="../about.html" class="navbar__links">About Me</a>
+			<nav class="navbar__container">
+				<input type="checkbox" id="trigger" class="navbar__input" />
+				<label
+					class="navbar__label"
+					aria-label="open main navigation"
+					for="trigger"
+					><span class="navbar__label__span"></span
+				></label>
+				<div class="navbar__menu">
+					<div class="navbar__spacer"></div>
+					<a href="../index.html" class="navbar__menu__links"
+						>Projects and Blogs</a
+					>
+					<a href="../design.html" class="navbar__menu__links"
+						>Design</a
+					>
+					<a href="../about.html" class="navbar__menu__links"
+						>About Me</a
+					>
+				</div>
+			</nav>
+		</div>
+		<div class="header">
+			<p class="header__title--small">
+				Personal Object Detection End-point
+			</p>
+			<p class="header__desc">
+				Deploying object detection on Flask web server
+			</p>
+		</div>
+
+		<div class="content">
+			<p>
+				In this post, I will detail out the steps I take to run an
+				object detection model (Yolo v3) on a web server (Flask) then
+				how to interface with it from a website using Javascript
+			</p>
+
+			<p>
+				To deploy your Yolo v3 model on flask, follow this very nice
+				tutorial until he jumped into his obsession with dockers and
+				make it a full deployable solution.
+			</p>
+
+			<a
+				href="https://medium.com/analytics-vidhya/object-detection-using-yolo-v3-and-deploying-it-on-docker-and-minikube-c1192e81ae7a"
+				>Yolo v3 on Flask</a
+			>
+			<p>
+				If you are into that kind of thing, you can follow him through,
+				but we are not here to create full produciton level code right?
+				The hackier the better, it's called hackathon for a reason (and
+				not like... productionathon.... which is less catchy and I'm
+				pretty sure that's the main reason :D )
+			</p>
+
+			<p>
+				And congratulation, you've deployed your yolo v3 model on the
+				web using flask (wohoo)
+			</p>
+
+			<p>
+				Thank you for reading this post that just basically points you
+				to another source :D
+			</p>
+
+			<p>
+				But wait, you don't know what to do with the server? It's like..
+				running but don't know how to send data to it without using
+				curl? Well if you do, good job and this post is useless for you,
+				if you do, read on
+			</p>
+
+			<p>
+				Before showing you the code to perform the above, lemme explain
+				what it is trying to do
+			</p>
+
+			<p>BUT EVEN BEFORE I EXPLAIN THAT</p>
+			<p>Small code change from the tutorial above</p>
+
+			<p>
+				There's this function that encodes the image to byte array? The
+				one shown here
+			</p>
+
+			<!-- prettier-ignore -->
+			<div class="code">
+    def image_to_byte_array(image: Image):
+        imgByteArr = io.BytesIO()
+        image.save(imgByteArr, format="JPEG")
+        imgByteArr = imgByteArr.getvalue()
+        return imgByteArr
+            </div>
+			<!-- prettier-ignore-end -->
+
+			<p>Yes that one, change the final line to so:</p>
+
+			<!-- prettier-ignore -->
+			<div class="code">
+    def image_to_byte_array(image: Image):
+        imgByteArr = io.BytesIO()
+        image.save(imgByteArr, format="JPEG")
+        imgByteArr = imgByteArr.getvalue()
+        return base64.b64encode(imgByteArr)
+            </div>
+			<!-- prettier-ignore-end -->
+
+			<p>Okay, back to what I was talking about</p>
+
+			<p>
+				Basically... You use get image input using the input tag with
+				attribute file. You then get the file using javascript, convert
+				it to a blob then send it to the flask server using Javascript
+			</p>
+
+			<p>In other words</p>
+
+			<p>HTML</p>
+
+			<!--prettier-ignore-->
+
+			<div class="code">
+    &lt;input type="file" name="file" id="file" /&gt;
+    &lt;img src=""alt="" id="imagePreview" /&gt;
+    &lt;button id="upload-file-btn"&gt;Upload&lt;/button&gt;
+    &lt;img src=""alt="" id="received-image" /&gt;
+            </div>
+
+			<!-- prettier-ignore-end -->
+
+			<p>Javascript</p>
+
+			<!-- prettier-ignore -->
+			<div class="code">
+
+    //If file change, read load file to img
+    $("#file").change(() => {
+        readURL($("#file")[0]);
+    });
+
+
+    $(function () {
+        $('#upload-file-btn').click(function () {
+
+            var form_data = new FormData();
+            console.log(form_data);
+            var img_blob = $("#imagePreview")[0].src;
+
+            img_blob = base64ToBlob(img_blob);
+
+            form_data.append('image', img_blob, "clientImage.jpg");
+            console.log(form_data);
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://192.168.1.69:5000/api/test',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log('Success!');
+                    console.log(data);
+
+                    $('#received-image').attr('src', `data:image/jpeg;base64,${data}`);
+                },
+            });
+        });
+    });
+    
+    
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imagePreview')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function base64ToBlob(imgInBase64) {
+        var data = imgInBase64.split(";base64,");
+        var dataType = data[0];
+        var base64Arr = data[1];
+
+        console.log("Data before encoding: " + imgInBase64);
+
+        const byteCharacter = atob(base64Arr);
+
+        console.log("Data after encoding: " + byteCharacter);
+
+        const byteNumber = new Array(byteCharacter.length);
+        for (let i = 0; i < byteCharacter.length; ++i) {
+            byteNumber[i] = byteCharacter.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumber);
+
+        var blob = new Blob([byteArray], { type: dataType });
+
+        console.log(blob);
+
+        return blob;
+    }
+        </div>
+
+			<!-- prettier-ignore-end -->
+
+			<div class="note">
+				Change the destination ip address to the ip address of your
+				flask server
+			</div>
+
+			<p>
+				The above code is pretty self-explanatory (imo) but for the 5%
+				out there (hopefully, or my code is just bad TT)
+			</p>
+
+			<p>
+				*deep breath* The javascript code watch for change in the input
+				element, if there is a change (user selected an image) the
+				script will load the image to an image. When the user press the
+				upload button, the script will take the base64 source of the
+				image from the src component of the img element previously
+				loaded and convert it to a blob (it's a thing, don't worry about
+				it) the blob is then sent to the flask server on the ip address
+				given (don't forget to change that to yours). Then, when the
+				script receive the response from the server, put the response
+				data to an img element to display the returned image
+			</p>
+
+			<p>
+				But wait I hear, you want the user to take picture using their
+				camera? Well
+			</p>
+
+			<p>Here you go!</p>
+
+			<a
+				href="https://www.html5rocks.com/en/tutorials/getusermedia/intro/"
+				>Take picture in website</a
+			>
+
+			<p>
+				Incase you want the bad code that I wrote it, you can have it to
+				you masochist.
+			</p>
+
+			<p>HTML</p>
+
+			<!-- prettier-ignore -->
+
+			<div class="code">
+
+    &lt;div id="screenshot"&gt;
+        &lt;video autoplay&gt;&lt;/video&gt;
+
+        &lt;img src="" alt="" id="imagePreview" height="500px" width="auto"&gt;
+
+        &lt;button class="capture-button"&gt;Capture Video Button&lt;/button&gt;
+        &lt;button id="screenshot-button"&gt;Screen Shot Button&lt;/button&gt;
+        &lt;button id="stop-button"&gt;Stop&lt;/button&gt;
+        &lt;select name="" id=""&gt;&lt;/select&gt;
+        &lt;canvas style="display:none" id="canvas"&gt;&lt;/canvas&gt;
+
+    &lt;/div&gt;
+
+
+    &lt;form id="upload-file" method="post" enctype="multipart/form-data"&gt;
+        &lt;fieldset&gt;
+            &lt;label for="file"&gt;Select a file&lt;/label&gt;
+            &lt;input type="file" name="image" id="file" accept="image/gif, image/jpeg, image/png"&gt;
+        &lt;/fieldset&gt;
+        &lt;fieldset&gt;
+            &lt;button id="upload-file-btn" type="button"&gt;Upload&lt;/button&gt;
+        &lt;/fieldset&gt;
+    &lt;/form&gt;
+
+
+    &lt;h1 id="ItemPreview"&gt;&lt;/h1&gt;
+    &lt;img src="" alt="" id="received-image"&gt;
+
+            </div>
+			<!-- prettier-ignore-end -->
+
+			<p>Javascript</p>
+
+			<!-- prettier-ignore -->
+			<div class="code">
+                
+    const captureVideoButton = document.querySelector("#screenshot .capture-button");
+    const screenshotButton = document.querySelector("#screenshot-button");
+    const img = document.querySelector("#screenshot img");
+    const video = document.querySelector("#screenshot video");
+    const videoSelect = document.querySelector('#screenshot select')
+    const canvas = document.getElementById("canvas");
+
+
+    if (hasGetUserMedia()) {
+
+        navigator.mediaDevices.enumerateDevices().then(gotDevices).then(getStream).catch(handleError);
+
+        videoSelect.onchange = getStream;
+
+        function gotDevices(deviceInfos) {
+            for (let i = 0; i !== deviceInfos.length; ++i) {
+                const deviceInfo = deviceInfos[i];
+                const option = document.createElement('option');
+                option.value = deviceInfo.deviceId;
+                if (deviceInfo.kind == 'videoinput') {
+                    option.text = deviceInfo.label || 'camera ' + (videoSelect.length + 1);
+                    videoSelect.appendChild(option);
+                } else {
+                    console.log('Found another kind of device: ', deviceInfo);
+                }
+            }
+        }
+
+        function getStream() {
+            if (window.stream) {
+                window.stream.getTracks().forEach(
+                    function (track) {
+                        track.stop();
+                    });
+            }
+
+            const constraints = {
+                video: {
+                    deviceId: { exact: videoSelect.value }
+                }
+            };
+
+            captureVideoButton.onclick = function () {
+                navigator.mediaDevices.getUserMedia(constraints).then(gotStream).catch(handleError);
+            }
+
+        }
+
+        function gotStream(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+
+        screenshotButton.onclick = video.onclick = function () {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            img.src = canvas.toDataURL('image/jpeg');
+
+            $("#file")[0]
+
+        };
+
+    } else {
+        alert("getUserMedia() is not suppoerted by your browser");
+    }
+
+    function hasGetUserMedia() {
+        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    }
+
+    function handleSuccess(stream) {
+        screenshotButton.disabled = false;
+        video.srcObject = stream;
+    }
+
+    function handleError(error) {
+        console.log("Error: ", error);
+    }
+
+            </div>
+			<!-- prettier-ignore-end -->
+
+			<p>
+				The above code directly above only contains the javascript to
+				take picture and put it to an img elem (i think) so you will
+				still need the all the javascripts in this post to make the
+				thing work. The directly above html is complete though, so just
+				that html will suffice
+			</p>
+
+			<p>With that, you are done! yay...</p>
+
+			<p>Please like, subscribe and yeah.... do.... something...</p>
+		</div>
+
+		<div class="footer">&copy;Hanscau 2020</div>
+	</body>
+</html>
