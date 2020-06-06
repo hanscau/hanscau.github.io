@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Hanscau's Projects and Blogs</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="stylesheet" href="../css/main.inverted.min.css" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+
+	<body>
+		<div class="navbar">
+			<a class="navbar__title" href="../index.html">Hanscau's</a>
+			<div class="spacer"></div>
+			<a href="../index.html" class="navbar__links">Projects and Blogs</a>
+			<a href="../design.html" class="navbar__links">Design</a>
+			<a href="../about.html" class="navbar__links">About Me</a>
+			<nav class="navbar__container">
+				<input type="checkbox" id="trigger" class="navbar__input" />
+				<label
+					class="navbar__label"
+					aria-label="open main navigation"
+					for="trigger"
+					><span class="navbar__label__span"></span
+				></label>
+				<div class="navbar__menu">
+					<div class="navbar__spacer"></div>
+					<a href="../index.html" class="navbar__menu__links"
+						>Projects and Blogs</a
+					>
+					<a href="../design.html" class="navbar__menu__links"
+						>Design</a
+					>
+					<a href="../about.html" class="navbar__menu__links"
+						>About Me</a
+					>
+				</div>
+			</nav>
+		</div>
+		<div class="header">
+			<p class="header__title--small">
+				Codenames Online
+			</p>
+			<p class="header__desc">
+				Developing a real-time board games with node.js and socket.io
+			</p>
+		</div>
+
+		<div class="content">
+			<h3>Preface (a.k.a grandmother story)</h3>
+			<p>
+				This post is created during a time on uncertainty. Where
+				everyone is stuck at home and it required by law to be stuck at
+				home. Is it the apocalypse? No, is it the zombies? Not either.
+				It's worst, it's a virus outbreak. Worst because at least
+				apocalypse or a zombie attack would have been much cooler (at
+				least in my ungrateful mind) and we could have been allowed to
+				raid NTUC (Is THAT not fun?). But yes, during this time, the
+				worst enemy (at least for those who are not battling the virus
+				that is) is boredom. So in an effort to do what I can to help
+				even a tiny bit in this crisis, I've decided to port a board
+				game that my church wanted to play online (Is it even legal?
+				Probably not, but we did have a proper physical copy of the
+				game... so.... yeah...).
+			</p>
+
+			<p>
+				The publisher of the game have a very nice tutorial on how to
+				play the game, so I'll just link their youtuber right here:
+				<a target="_new" href="https://youtu.be/gP5j9n7WJ5k"
+					>Codenames: Pictures - Official Rules Video</a
+				>
+			</p>
+
+			<p>
+				But in a nutshell, the game is setup with a 4 by 5 grid of
+				interesting pictures on the table. There are two teams and each
+				team has at least 1 spymaster. These spymasters are given a map
+				that maps out which picture card is theirs and the enemy teams.
+				The spymaster must then use a word and a number to try to direct
+				their fellow spies to their own team's pictures. After guessing
+				the picture cards, the next team's spy master can go and this
+				cycle goes on. The first team to gets all their cards first
+				wins. Is that a good explanation? Probably not, but hey, it's
+				the effort that matters :D
+			</p>
+
+			<p>Okay, enough of talking, let's talk development</p>
+
+			<h3>Development thoughts</h3>
+
+			<p>
+				Originally, my church have planned to play it through a
+				conferencing app like Zoom with someone share screening the
+				image capture of the array of images and manual revealing.
+				Albeit a good enough solution, there are some limitations to
+				this method.
+			</p>
+
+			<p>Limitations of a Zoom Codenames session:</p>
+
+			<ol>
+				<li>Can't have multiple session</li>
+				<li>Requires a game master to faciliate the game</li>
+				<li>
+					Game master's reaction time does not provide immediate
+					feedback
+				</li>
+				<li>
+					Very hard to communicate as they can't point with the
+					fingers (I mean... it is a virtual setting...)
+				</li>
+			</ol>
+
+			<p>
+				From these limitations, I drew up my requirements:
+			</p>
+
+			<ol>
+				<li>
+					Accessible to everyone at anytime (not platform specific)
+				</li>
+				<li>Realtime updates of the game</li>
+				<li>Multiple room sessions</li>
+			</ol>
+
+			<p>
+				With these requirements, my solution was a web app running on a
+				node.js server to serve a react frontend with socket.io for
+				communications.
+			</p>
+
+			<p>
+				I have deemed that linking up to the website itself would be
+				illegal? Linking it to the source code is also illegal... So
+				I've decided that the best course of action is just to put in
+				pictures!
+			</p>
+
+			<h3>Implementation</h3>
+
+			<p>When you go to the hypothetical (cough, cough) site</p>
+			<img
+				id="blogImg"
+				class="img-big"
+				src="/assets/codenames_online/sudo-signup-page.jpg"
+				alt="Sign up page"
+				srcset=""
+			/>
+			<p class="img-small__caption">Sudo sign up page</p>
+			<p>
+				After you have finish giving yourself a nickname and typing in
+				the room number, you go to team select
+			</p>
+			<img
+				class="img-big"
+				src="/assets/codenames_online/team-select.jpg"
+				alt="Selecting teams"
+				srcset=""
+			/>
+			<p class="img-small__caption">Team Select</p>
+			<p>
+				Here in the team select, you can decide which team you want to
+				be in and if you want to be the spymaster of the team or not.
+				Once you're ready, you can press on the "I'm ready!" button to
+				ready yourself
+			</p>
+			<img
+				src="/assets/codenames_online/team-select-2.jpg"
+				class="img-big"
+				alt="Team select UIs"
+				alt=""
+			/>
+			<p class="img-small__caption">Everyone is getting ready!</p>
+			<p>When everyone is ready, they then transition to games mode</p>
+			<img
+				src="/assets/codenames_online/spy-view.jpg"
+				alt="Spy view"
+				class="img-big"
+			/>
+			<p class="img-small__caption">Spy view</p>
+			<p>If you are the spymaster, you can see more stuff</p>
+			<img
+				src="/assets/codenames_online/spymaster-view.jpg"
+				class="img-big"
+				alt="Spy Master view"
+			/>
+			<p class="img-small__caption">Spy master view</p>
+			<p>You can then click on stuff to annotate it</p>
+			<img
+				src="/assets/codenames_online/annotation.jpg"
+				alt="Annotation"
+				class="img-big"
+			/>
+			<p class="img-small__caption">Annotation of picture</p>
+			<p>
+				And once you are confident that's the picture, the spymaster can
+				reveal the card's identity
+			</p>
+			<img
+				src="/assets/codenames_online/selection.jpg"
+				alt="Selection"
+				class="img-big"
+			/>
+			<p class="img-small__caption">
+				Spy master select the confirmed picture
+			</p>
+			<img
+				src="/assets/codenames_online/reveal.jpg"
+				alt="Reveal"
+				class="img-big"
+			/>
+			<p class="img-small__caption">Spy master reveals the identity</p>
+			<p>
+				This cycle repeats until one of the team wins, then they can
+				either continue to the next board, go back to team select or
+				realised that there is more to life that playing games... maybe
+				start working out... or get a hobby...
+			</p>
+			<p>
+				Here is the link to prove that it is not a gimmic, and it runs
+				in sudo-real-time:
+			</p>
+			<a href="">Codenames online - demo video</a>
+			<p>Thanks for reading and stay safe :)</p>
+		</div>
+
+		<div class="footer">&copy;Hanscau 2020</div>
+	</body>
+</html>

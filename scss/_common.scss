@@ -21,6 +21,10 @@ code {
   width: 80%;
 }
 
+ol {
+  margin: 16px 0;
+}
+
 .spacer {
   flex: 1 0;
 }
@@ -59,6 +63,11 @@ code {
   width: 100%;
   margin: 15px auto;
   max-width: 750px;
+}
+
+.img-big {
+  width: 100%;
+  margin: 15px auto;
 }
 
 .img-small {
